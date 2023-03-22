@@ -1,0 +1,65 @@
+O hook está centralizando todas as funções de autenticação importadas do firebase
+
+Erros podem vir tanto do formulário quanto do backend (authError)
+
+
+Hook:
+
+
+export const useAuthentication = () => { --> Tudo está aqui
+    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(null)
+    const [cancelled, setCancelled] = useState(false)
+
+
+function checkIfIsCancelled()
+
+const auth = getAuth()
+
+const createUser = async(data) => {
+        checkIfIsCancelled();
+        setLoading(true);
+        setError(null);
+
+try / catch
+
+
+exporta auth,
+        createUser,
+        error,
+        loading,
+        logout,
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Contexto
+const AuthContext = createContext();
+
+export function AuthProvider({children, value}) {
+    return <AuthContext.Provider value={value}>
+        {children}
+    </AuthContext.Provider>
+}
+
+export function useAuthValue() {
+    return useContext(AuthContext)
+}
+XXXXXXXXXXXXXXXXXXXXXXXXXXX
+NO APP.JS
+
+const [user, setUser] = useState(undefined); --> Usuário começa como undefined
+const { auth } = useAuthentication(); --> Importando do hook
+const loadingUser = user === undefined;
+
+
+Com o logout, o useEffect executa e entrega um novo usuário não autenticado pro provider e o contexto o compartilha
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+  }, [auth]);
+
+<AuthProvider value={{ user }}> O user do provider muda sempre que o auth do useEffect mudar
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+useInsertDocuments --> hook para inserir no firebase
+useFetchDocuments --> hook para exibir os posts
+
+
